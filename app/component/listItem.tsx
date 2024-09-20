@@ -85,7 +85,7 @@ export function ListItem(task: TaskType) {
       >
         {task.body}
       </p>
-      <Button variant="ghost" size="icon" size={"sm"} onClick={handleDelete}>
+      <Button variant="ghost" size="icon" onClick={handleDelete}>
         {deletingTask && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {!deletingTask && <Trash2 className="h-4 w-4" />}
       </Button>
