@@ -1,4 +1,3 @@
-import { ReactEventHandler } from 'react';
 import { create } from 'zustand';
 
 type NoteFormState = {
@@ -6,7 +5,7 @@ type NoteFormState = {
     body: string;
     isCreating: boolean;
     setActive: (state: boolean) => void;
-    handleOnChange: (event: any) => void;
+    handleOnChange: (event) => void;
     clear: () => void;
     setCreating: (status: boolean) => void;
 }
@@ -17,17 +16,17 @@ const useTaskForm = create<NoteFormState>()((set) => ({
     isCreating: false,
 
     setCreating: (status) => {
-        set((state) => ({ isCreating: status }))
+        set({ isCreating: status })
     },
 
-    setActive: (new_state) => set((state) => ({ isActive: new_state })),
+    setActive: (new_state) => set({ isActive: new_state }),
 
     clear: () => {
-        set((state) => ({ body: "", isCreating: false }));
+        set({ body: "", isCreating: false });
     },
 
     handleOnChange: (event) => {
-        set((state) => ({ body: event.target.value }));
+        set({ body: event.target.value });
     }
 }))
 

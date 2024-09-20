@@ -44,17 +44,15 @@ const useTasks = create<TasksState>()((set) => ({
     initNotes: async () => {
         const respose = await axios.get("/api/v1/task");
 
-        var taks = []
-
-        set((state) => ({
-            notes: respose.data.tasks.reverse().map((task: any) => {
+        set({
+            notes: respose.data.tasks.reverse().map((task) => {
                 return {
                     id: task.$id,
                     body: task.body,
                     isCompleted: task.completed
                 }
             })
-        }));
+        });
     },
 
     clearTask: () => {

@@ -1,36 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Cloud,
-  CreditCard,
-  Github,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Mail,
-  MessageSquare,
-  Plus,
-  PlusCircle,
-  Settings,
-  User,
-  UserPlus,
-  Users,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -60,12 +39,13 @@ const Header = () => {
         }
       })
       .catch((reason) => {
+        console.log(reason);
         clear();
       });
   }, []);
 
   async function logOut() {
-    const response = await axios.delete("/api/v1/session");
+    await axios.delete("/api/v1/session");
     clear();
     router.push("/auth/login/");
     clearTask();

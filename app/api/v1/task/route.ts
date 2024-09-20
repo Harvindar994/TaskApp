@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
         }, { status: 200 })
 
     } catch (error) {
+        console.log(error);
         return Response.json({
             error: "Unable to create Task."
         })
@@ -63,6 +64,7 @@ export async function PATCH(request: NextRequest) {
         }, { status: 200 })
 
     } catch (error) {
+        console.log(error);
         return NextResponse.json({
             error: "Unable to update the task at the moment."
         }, { status: 400 })
@@ -88,7 +90,7 @@ export async function DELETE(request: NextRequest) {
         }, { status: 200 })
 
     } catch (error) {
-
+        console.log(error);
         return NextResponse.json({
             error: "Unable to delete the task.",
         }, { status: 400 })
@@ -96,7 +98,7 @@ export async function DELETE(request: NextRequest) {
     }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
 
     try {
         const sessionCookie = cookies().get('session');
@@ -119,7 +121,7 @@ export async function GET(request: NextRequest) {
         })
 
     } catch (error) {
-
+        console.log(error);
         return NextResponse.json({
             error: "Unable to fetch the tasks at the moment."
         }, { status: 400 })

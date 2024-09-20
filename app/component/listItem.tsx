@@ -35,6 +35,7 @@ export function ListItem(task: TaskType) {
         toast.error("Unable to update task at the moment.");
       }
     } catch (error) {
+      console.log(error.status);
       toast.error("Unable to update task at the moment.");
     }
     setupdatingTask(false);
@@ -66,6 +67,7 @@ export function ListItem(task: TaskType) {
         toast.error("Unable to delete task at the moment.");
       }
     } catch (error) {
+      console.log(error.status);
       toast.error("Unable to delete task at the moment.");
     }
     setDeletingTask(false);

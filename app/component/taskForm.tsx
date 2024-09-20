@@ -13,13 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { toast } from "sonner";
 
 import { useTaskForm } from "../states/noteForm";
@@ -57,6 +50,7 @@ export function TaskForm() {
         description: response.data.body,
       });
     } catch (error) {
+      console.log(error.status);
       toast.error("Unable to create task at the moment");
     }
 

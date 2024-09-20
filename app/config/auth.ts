@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { createSessionClient } from "./nodeAppwrite";
-import { redirect } from "next/navigation";
 
 type SessionCookie = { value: string; name: string };
 
@@ -16,7 +15,7 @@ const auth = {
             auth.user = await account.get();
 
         } catch (error) {
-
+            console.log(error);
             auth.user = null;
             auth.sessionCookie = null;
         }
@@ -30,7 +29,11 @@ const auth = {
         try {
             const { account } = await createSessionClient(auth.sessionCookie.value);
             await account.deleteSession('current');
-        } catch (error) { }
+        } catch (error) {
+
+            console.log(error);
+
+        }
 
         cookies().delete('session');
         auth.user = null;

@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
         const { users } = await createAdminClient();
 
-        const result = await users.create(
+        await users.create(
             ID.unique(),
             email,
             undefined,

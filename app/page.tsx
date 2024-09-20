@@ -6,7 +6,6 @@ import { useTaskForm } from "./states/noteForm";
 import { useTasks } from "./states/notes";
 import { TaskType } from "./types/task";
 import { ThemeToggle } from "./component/themeToggle";
-import { Divide } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect } from "react";
 

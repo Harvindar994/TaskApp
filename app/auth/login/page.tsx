@@ -51,6 +51,7 @@ function Login() {
         toast.success("Successfully logged in");
       }
     } catch (error) {
+      console.log(error.status);
       toast.error("Invalid user or password");
     }
     setGettingLogin(false);
