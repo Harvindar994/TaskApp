@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { createSessionClient } from "./nodeAppwrite";
+import { UserType } from "../types/user";
 
 type SessionCookie = { value: string; name: string };
 
@@ -7,7 +8,7 @@ const auth = {
     user: null,
     sessionCookie: null,
 
-    getUser: async () => {
+    getUser: async (): Promise<UserType | null> => {
         auth.sessionCookie = cookies().get('session') as SessionCookie;
 
         try {
