@@ -7,8 +7,8 @@ export async function GET(request: NextRequest) {
 
         if (user) {
             return NextResponse.json({
-                name: user.name!,
-                email: user.email!,
+                name: user?.name,
+                email: user?.email,
                 avatar: null
             }, { status: 200 })
         }
