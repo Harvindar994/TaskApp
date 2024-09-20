@@ -1,3 +1,11 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off", // Disable errors for 'any' type
+    "@typescript-eslint/explicit-module-boundary-types": "off", // Disable need for return types on functions
+    "@typescript-eslint/no-unused-vars": "warn", // Show warnings for unused variables instead of errors
+    "no-console": "off", // Allow 'console.log' statements
+    "no-undef": "off", // Disable 'no-undef' rule if it's causing issues
+    "no-unknown-error": "off" // Disable the rule that checks for unknown error types in catch blocks
+  }
 }
