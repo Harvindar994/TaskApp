@@ -49,7 +49,7 @@ export function TaskForm() {
       toast.success("Task successfully created", {
         description: response.data.body,
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.status);
       toast.error("Unable to create task at the moment");
     }

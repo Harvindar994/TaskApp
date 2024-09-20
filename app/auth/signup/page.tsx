@@ -69,7 +69,7 @@ export default function Signup() {
           toast.error("Failed to create account");
           break;
       }
-    } catch (error) {
+    } catch (error: any) {
       switch (error.status) {
         case 409:
           toast.error("A user with the same email already exists.");

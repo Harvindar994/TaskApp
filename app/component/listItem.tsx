@@ -34,7 +34,7 @@ export function ListItem(task: TaskType) {
       } else {
         toast.error("Unable to update task at the moment.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.status);
       toast.error("Unable to update task at the moment.");
     }
@@ -66,7 +66,7 @@ export function ListItem(task: TaskType) {
       } else {
         toast.error("Unable to delete task at the moment.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.status);
       toast.error("Unable to delete task at the moment.");
     }
