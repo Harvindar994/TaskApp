@@ -76,7 +76,7 @@ export function ListItem(task: TaskType) {
   return (
     <div
       onClick={handleCompleted}
-      className="flex justify-center items-center gap-5 p-3 rounded-xl bg-slate-100 text-gray-950 justify-between"
+      className="flex items-center gap-3 p-3 rounded-xl bg-slate-100 text-gray-950 justify-between"
     >
       <p
         className={String(
@@ -85,10 +85,12 @@ export function ListItem(task: TaskType) {
       >
         {task.body}
       </p>
-      <Button variant="ghost" size="icon" onClick={handleDelete}>
-        {deletingTask && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {!deletingTask && <Trash2 className="h-4 w-4" />}
-      </Button>
+      <div className="flex justify-center items-center">
+        <Button variant="ghost" size="icon" onClick={handleDelete}>
+          {deletingTask && <Loader2 className="h-4 w-4 animate-spin" />}
+          {!deletingTask && <Trash2 className="h-4 w-4" />}
+        </Button>
+      </div>
     </div>
   );
 }
