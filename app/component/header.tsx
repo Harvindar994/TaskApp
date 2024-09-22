@@ -45,9 +45,7 @@ const Header = () => {
 
   async function logOut() {
     axios.delete("/api/v1/session").then(() => {
-      // clear();
       router.push("/auth/login");
-      // clearTask();
     });
   }
 

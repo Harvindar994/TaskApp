@@ -29,8 +29,8 @@ export async function GET(request: NextRequest) {
     }
 }
 
-export async function DELETE() {
-    auth.deleteSession();
+export async function DELETE(request: NextRequest) {
+    await auth.deleteSession();
     return NextResponse.json({
         message: "User Logged Out."
     }, {

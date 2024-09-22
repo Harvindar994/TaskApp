@@ -9,11 +9,16 @@ const auth = {
     sessionCookie: null,
 
     getUser: async (): Promise<UserType | null> => {
-        auth.sessionCookie = cookies().get('session') as SessionCookie;
-
         try {
-            const { account } = await createSessionClient(auth.sessionCookie.value);
-            auth.user = await account.get();
+            auth.sessionCookie = cookies().get('session') as SessionCookie;
+            if (auth.sessionCookie && auth.sessionCookie.value) {
+                const { account } = await createSessionClient(auth.sessionCookie.value);
+                auth.user = await account.get();
+            }
+            else {
+                auth.user = null;
+                auth.sessionCookie = null;
+            }
 
         } catch (error) {
             console.log(error);
@@ -25,18 +30,22 @@ const auth = {
     },
 
     deleteSession: async () => {
-        auth.sessionCookie = cookies().get('session');
-
         try {
-            const { account } = await createSessionClient(auth.sessionCookie.value);
-            await account.deleteSession('current');
+            auth.sessionCookie = cookies().get('session') as SessionCookie;
+            if (auth.sessionCookie && auth.sessionCookie.value) {
+                const { account } = await createSessionClient(auth.sessionCookie.value);
+                await account.deleteSession('current');
+            }
         } catch (error) {
-
-            console.log(error);
-
+            console.log("Error While Deleting Session: ", error);
         }
-
-        cookies().delete('session');
+        cookies().set("session", null, {
+            httpOnly: true,
+            sameSite: "strict",
+            secure: true,
+            expires: new Date(),
+            path: "/",
+        });
         auth.user = null;
         auth.sessionCookie = null;
     }

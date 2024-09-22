@@ -2,11 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import auth from "./app/config/auth";
 
 export async function middleware(request: NextRequest) {
-    const user = await auth.getUser();
+    let user = null;
+
+    try {
+        user = await auth.getUser();
+    } catch (error) {
+        console.log("Couldn't find the user");
+    }
 
     const currentPath = new URL(request.url).pathname;
-
-    console.log("middleware working on: ", request.url);
 
     if (!user) {
         request.cookies.delete('session');
