@@ -29,26 +29,26 @@ const Header = () => {
     axios
       .get("/api/v1/session")
       .then((respose) => {
-        console.log(respose);
-
         if (respose.status == 200) {
-          const { email, name, avatar } = respose.data;
-          setSession(email, name, avatar);
+          if (email != respose.data.email) {
+            const { email, name, avatar } = respose.data;
+            setSession(email, name, avatar);
+          }
         } else {
           clear();
         }
       })
-      .catch((reason) => {
-        console.log(reason);
+      .catch(() => {
         clear();
       });
   }, []);
 
   async function logOut() {
-    await axios.delete("/api/v1/session");
-    clear();
-    router.push("/auth/login/");
-    clearTask();
+    axios.delete("/api/v1/session").then(() => {
+      // clear();
+      router.push("/auth/login");
+      // clearTask();
+    });
   }
 
   return (

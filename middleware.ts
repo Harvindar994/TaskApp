@@ -6,6 +6,8 @@ export async function middleware(request: NextRequest) {
 
     const currentPath = new URL(request.url).pathname;
 
+    console.log("middleware working on: ", request.url);
+
     if (!user) {
         request.cookies.delete('session');
 
@@ -24,6 +26,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        "/", "/auth/login"
+        "/", "/auth/login", "/api/v1/task"
     ]
 }

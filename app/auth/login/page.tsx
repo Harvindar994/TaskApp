@@ -18,13 +18,20 @@ import { useLogin } from "@/app/states/login";
 import { toast } from "sonner";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTasks } from "@/app/states/notes";
 
 function Login() {
   const router = useRouter();
   const { onEmailChange, onPasswordChange, email, password } = useLogin();
-  const { setSession } = useSession();
+  const { setSession, clear } = useSession();
   const [gettingLogin, setGettingLogin] = useState(false);
+  const { clearTask } = useTasks();
+
+  useEffect(() => {
+    clearTask();
+    clear();
+  }, []);
 
   const login = async () => {
     if (gettingLogin) {
