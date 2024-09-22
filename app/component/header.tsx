@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { LogOut } from "lucide-react";
+import { Loader2, LogOut } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "../states/session";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { ThemeToggle } from "./themeToggle";
@@ -23,6 +23,7 @@ import { useTasks } from "../states/notes";
 const Header = () => {
   const { email, name, avatar, isAvailable, clear, setSession } = useSession();
   const { clearTask } = useTasks();
+  const [gettingLogout, setGettingLogout] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -44,9 +45,16 @@ const Header = () => {
   }, []);
 
   async function logOut() {
-    axios.delete("/api/v1/session").then(() => {
-      router.push("/auth/login");
-    });
+    setGettingLogout(true);
+    axios
+      .delete("/api/v1/session")
+      .then(() => {
+        router.push("/auth/login");
+        setGettingLogout(false);
+      })
+      .catch(() => {
+        setGettingLogout(false);
+      });
   }
 
   return (
@@ -67,7 +75,12 @@ const Header = () => {
             <DropdownMenuTrigger asChild className="cursor-pointer">
               <Avatar>
                 {avatar && <AvatarImage src={avatar} />}
-                <AvatarFallback>{name.charAt(0).toUpperCase()}</AvatarFallback>
+                <AvatarFallback>
+                  {gettingLogout && (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  )}
+                  {!gettingLogout && name.charAt(0).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 -translate-x-4 translate-y-2">
