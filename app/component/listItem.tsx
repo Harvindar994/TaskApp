@@ -76,7 +76,7 @@ export function ListItem(task: TaskType) {
   return (
     <div
       onClick={handleCompleted}
-      className="flex items-center gap-3 p-3 rounded-xl bg-slate-100 text-gray-950 justify-between"
+      className="flex items-center gap-3 p-3 rounded-xl bg-slate-100 text-gray-950 justify-between break-all"
     >
       <p
         className={String(
