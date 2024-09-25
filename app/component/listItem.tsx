@@ -6,6 +6,13 @@ import clsx from "clsx";
 import axios from "axios";
 import { toast } from "sonner";
 
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
+
 import { useTasks } from "../states/notes";
 
 export function ListItem(task: TaskType) {
@@ -73,24 +80,40 @@ export function ListItem(task: TaskType) {
     setDeletingTask(false);
   }
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(task.body);
+      toast.success("Task successfully copied to the clipboard");
+    } catch (err) {
+      toast.error("Unable to copy content to the clipboard.");
+    }
+  };
+
   return (
-    <div
-      onClick={handleCompleted}
-      className="flex items-center gap-3 p-3 rounded-xl bg-slate-100 text-gray-950 justify-between break-all"
-    >
-      <p
-        className={String(
-          clsx(task.isCompleted && "line-through", "cursor-pointer")
-        )}
-      >
-        {task.body}
-      </p>
-      <div className="flex justify-center items-center">
-        <Button variant="ghost" size="icon" onClick={handleDelete}>
-          {deletingTask && <Loader2 className="h-4 w-4 animate-spin" />}
-          {!deletingTask && <Trash2 className="h-4 w-4" />}
-        </Button>
-      </div>
-    </div>
+    <ContextMenu>
+      <ContextMenuTrigger>
+        <div
+          onClick={handleCompleted}
+          className="flex items-center gap-3 p-3 rounded-xl bg-slate-100 text-gray-950 justify-between break-all"
+        >
+          <p
+            className={String(
+              clsx(task.isCompleted && "line-through", "cursor-pointer")
+            )}
+          >
+            {task.body}
+          </p>
+          <div className="flex justify-center items-center">
+            <Button variant="ghost" size="icon" onClick={handleDelete}>
+              {deletingTask && <Loader2 className="h-4 w-4 animate-spin" />}
+              {!deletingTask && <Trash2 className="h-4 w-4" />}
+            </Button>
+          </div>
+        </div>
+      </ContextMenuTrigger>
+      <ContextMenuContent>
+        <ContextMenuItem onClick={handleCopy}>Copy</ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
   );
 }
